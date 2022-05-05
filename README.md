@@ -40,7 +40,7 @@ sudo emerge --ask --verbose app-containers/docker app-containers/docker-cli app-
 sudo rc-update add docker default
 sudo rc-service docker start
 ```
-##
+## Starting
 Clone repository using [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and start docker
 ```
 git clone https://github.com/Vring/FinalProject.git
