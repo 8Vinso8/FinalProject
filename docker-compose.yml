@@ -15,11 +15,11 @@ services:
     build:
       context: ./django-backend
       dockerfile: Dockerfile
-    command: bash -c "gunicorn django_cache.wsgi --bind 0.0.0.0:8000"
+    command: bash -c "gunicorn FinalProject.wsgi --bind 0.0.0.0:8000"
     container_name: backend
     image: backend_image
     volumes:
-      - ./django_backend:/backend
+      - ./django-backend:/backend
     ports:
       - "8000:8000"
     links:
@@ -29,7 +29,7 @@ services:
 
 
   scheduler:
-    restart: always
+    restart: "no"
     build:
       context: ./django-backend
       dockerfile: SchedulerDockerfile

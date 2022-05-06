@@ -10,3 +10,4 @@ redis
 schedule
 django_cron
 django-cors-headers
+gunicorn
