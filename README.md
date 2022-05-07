@@ -35,20 +35,26 @@ sudo systemctl enable docker
 Refer to [Gentoo Wiki](https://wiki.gentoo.org/wiki/Docker#Installation) if problems occur.
 ```
 sudo emerge --ask --verbose app-containers/docker app-containers/docker-cli
-sudo rc-update add docker default
 sudo rc-service docker start
 ```
+Start docker automaticaly if you want to:
+```
+sudo rc-update add docker default
+```
+
 ## Starting
 Clone repository using [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 ```
 git clone https://github.com/Vring/FinalProject.git
 cd FinalProject
 ```
+Use ```sudo``` if on **Linux**.
+
 And start all containers using ```docker compose```
 ```
 docker compose up -d
 ```
--d option is used to run docker in background
+```-d``` option is used to run docker in background
 
 # Docker commands
 Run using ```docker compose```
