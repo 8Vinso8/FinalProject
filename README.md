@@ -66,4 +66,14 @@ Rebuild all containers
 docker compose up -d --build
 ```
 
+Or you can rebuild a single container:
+```
+docker-compose up -d --build [container-name]
+```
+Container names:
+  - frontend
+  - backend
+  - scheduler
+  - redis
+
 More documentation is available at [Docker Docs](https://docs.docker.com/compose/).
