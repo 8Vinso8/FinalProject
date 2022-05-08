@@ -83,3 +83,8 @@ Container names:
   - redis
 
 More documentation is available at [Docker Docs](https://docs.docker.com/compose/).
+
+## API
+Django api is available at /api
+
+Vue.js frontend is available at /
