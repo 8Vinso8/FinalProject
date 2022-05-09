@@ -1,46 +1,34 @@
-version: '3.6'
+version: '3.9'
 
 services:
   redis:
-    restart: always
+    restart: "no"
     image: "redis:alpine"
     hostname: redis
     container_name: redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
 
 
   backend:
-    restart: always
+    restart: "no"
     build:
       context: ./django-backend
       dockerfile: Dockerfile
-    command: bash -c "gunicorn FinalProject.wsgi --bind 0.0.0.0:8000"
+    command: sh -c "gunicorn FinalProject.wsgi --bind 0.0.0.0:8000 -w 4"
     container_name: backend
     image: backend_image
     volumes:
       - ./django-backend:/backend
     ports:
-      - "8000:8000"
+      - '8000:8000'
     links:
       - redis
     depends_on:
       - redis
 
-
-  scheduler:
-    restart: "no"
-    build:
-      context: ./django-backend
-      dockerfile: SchedulerDockerfile
-    volumes:
-      - ./django-backend:/backend
-    container_name: scheduler
-    image: scheduler_image
-
-
   frontend:
-    restart: always
+    restart: "no"
     build:
       context: ./vue-frontend
       dockerfile: Dockerfile
@@ -49,6 +37,6 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./vue-frontend/nginx:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
