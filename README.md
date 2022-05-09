@@ -5,6 +5,7 @@
 ## Install docker
 ### Windows
 Run ```wsl --install``` in powershell with admin privileges
+
 Download Docker from official website and follow instructions: [link](https://docs.docker.com/desktop/windows/install/)
 
 ### Linux
