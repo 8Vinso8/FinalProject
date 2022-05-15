@@ -1,4 +1,4 @@
-# Techella
+# SeaVid
 
 # Installation
 
