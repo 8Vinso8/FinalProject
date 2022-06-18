@@ -15,7 +15,7 @@ def test(request):
     return HttpResponse("This is Django")
 
 
-class VideoList(generics.ListAPIView):
+class VideoList(generics.ListCreateAPIView):
     queryset = Video.objects.all()
     serializer_class = serializers.VideoSerializer
 
