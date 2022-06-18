@@ -4,12 +4,12 @@ from django.contrib.auth.models import User
 
 
 class VideoSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
-    author_id = serializers.ReadOnlyField(source='author.id')
+    #author = serializers.ReadOnlyField(source='author.username')
+    #author_id = serializers.ReadOnlyField(source='author.id')
 
     class Meta:
         model = Video
-        fields = ['id', 'author', 'author_id', 'title', 'description', 'date', 'video']
+        fields = ['id', 'author', 'title', 'description', 'date', 'video']
 
 
 class UserSerializer(serializers.ModelSerializer):
