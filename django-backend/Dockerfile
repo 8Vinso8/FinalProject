@@ -7,6 +7,9 @@ WORKDIR /backend
 
 RUN pip install --upgrade pip
 COPY ./requirements.txt /backend/
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+    gcc libc-dev linux-headers postgresql-dev \
+    && apk add libffi-dev
 RUN pip install -r requirements.txt
 COPY . /backend/
 
