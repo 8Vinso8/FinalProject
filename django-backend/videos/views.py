@@ -1,19 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from rest_framework import generics, permissions
-from . import serializers
-from django.contrib.auth.models import User
-from .models import Video
-from .permissions import IsOwnerOrReadOnly
-
-# Create your views here.
+from videos import serializers
+#from users.models import CustomUser as User
+from videos.models import Video
+from videos.permissions import IsOwnerOrReadOnly
 
 # redis connection
 # redis = rd.Redis(host=’redis’, port=6379, db=0)
-
-
-def test(request):
-    return HttpResponse("This is Django")
 
 
 class VideoList(generics.ListCreateAPIView):
@@ -22,7 +14,7 @@ class VideoList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(user=self.request.user)
 
 
 class VideoDetail(generics.RetrieveUpdateDestroyAPIView):

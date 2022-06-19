@@ -1,0 +1,7 @@
+{% extends "account/email/base_message.txt" %}
+{% load account %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Вы получили это письмо, потому что {{ user_display }} указал этот почтовый адрес при регистрации аккаунта на сайте {{ site_domain }}.
+
+Чтобы его подтвердить, перейдите по ссылке: {{ activate_url }}{% endblocktrans %}{% endautoescape %}{% endblock %}

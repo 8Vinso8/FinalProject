@@ -12,3 +12,4 @@ django_cron
 gunicorn
 dj-rest-auth[with_social]
 django-allauth
+Pillow
