@@ -10,10 +10,14 @@ class Video(models.Model):
     date = models.DateTimeField(default=timezone.now)
     video = models.FileField(upload_to='videos')
     thumbnail = models.ImageField(default='default_thumbnail.jpg', upload_to='videos/thumbnails')
+    likes = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return self.title
 
+    def likes_count(self):
+        return self.likes.count()
+
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
