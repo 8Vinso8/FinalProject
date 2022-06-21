@@ -1,19 +1,22 @@
 from rest_framework import serializers
-from videos.models import Video
-from users import serializers
+from videos.models import Video, Comment
+from users.serializers import UserSerializer
 
 
 class VideoSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='author.username')
-    user_id = serializers.ReadOnlyField(source='author.id')
+    user = serializers.ReadOnlyField(source='user.username')
+    user_id = serializers.ReadOnlyField(source='user.id')
+    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Video
-        fields = ['id', 'user', 'user_id', 'title', 'description', 'date', 'video', 'thumbnail', 'likes_count']
+        fields = ['id', 'user', 'user_id', 'title', 'description', 'date', 'video', 'thumbnail', 'likes_count', 'comments']
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.UserSerializer()
+    user = serializers.ReadOnlyField(source='user.username')
+    avatar = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False, source='user.avatar')
 
     class Meta:
-        fields = ['id', 'body', 'video', 'user']
+        model = Comment
+        fields = ['id', 'body', 'user', 'video', 'avatar']

@@ -52,24 +52,17 @@ class LikesDetail(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class CommentView(APIView):
-    permissions = [permissions.IsAuthenticatedOrReadOnly]
+class CommentList(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = serializers.CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def get_object(self, pk):
-        try:
-            return Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-    def get(self, request, pk):
-        video = self.get_object(pk)
-        serializer = serializers.CommentSerializer(video.comments.all(), many=True)
-        return Response(serializer.data)
 
-    def put(self, request, pk):
-        video = self.get_object(pk)
-        body = request.query_params['body']
-        if body:
-            Comment.objects.create(user=request.user, video=video, body=request.body)
-            return Response(status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_403_FORBIDDEN)
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = serializers.CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly]
