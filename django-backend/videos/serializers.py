@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from videos.models import Video
-from django.contrib.auth.models import User
+from users import serializers
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -10,3 +10,10 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ['id', 'user', 'user_id', 'title', 'description', 'date', 'video', 'thumbnail', 'likes_count']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.UserSerializer()
+
+    class Meta:
+        fields = ['id', 'body', 'video', 'user']

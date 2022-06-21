@@ -3,9 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from videos import serializers
 #from users.models import CustomUser as User
-from videos.models import Video
+from videos.models import Video, Comment
 from videos.permissions import IsOwnerOrReadOnly
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 
 # redis connection
 # redis = rd.Redis(host=’redis’, port=6379, db=0)
@@ -50,3 +50,26 @@ class LikesDetail(APIView):
             return Response(status=status.HTTP_200_OK)
         video.likes.add(user)
         return Response(status=status.HTTP_200_OK)
+
+
+class CommentView(APIView):
+    permissions = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_object(self, pk):
+        try:
+            return Video.objects.get(pk=pk)
+        except Video.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        video = self.get_object(pk)
+        serializer = serializers.CommentSerializer(video.comments.all(), many=True)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        video = self.get_object(pk)
+        body = request.query_params['body']
+        if body:
+            Comment.objects.create(user=request.user, video=video, body=request.body)
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_403_FORBIDDEN)

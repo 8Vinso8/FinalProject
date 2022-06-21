@@ -20,7 +20,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
                           IsOwnerOrReadOnly]
 
 
-class Subscribe(APIView):
+class SubscribeView(APIView):
     permissions = [permissions.IsAuthenticated]
 
     def get(self, request, pk):
@@ -49,3 +49,4 @@ class Subscribe(APIView):
             return Response(status.HTTP_200_OK)
         record.delete()
         return Response(status.HTTP_200_OK)
+
