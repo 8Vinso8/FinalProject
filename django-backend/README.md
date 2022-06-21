@@ -1,32 +1,31 @@
 # API endpoints
 ## Basic
-- `api/auth/login` (POST)
+- `api/users/login` (POST)
   - username
   - email
   - password
   Returns token key
-- `api/auth/logout` (POST)
+- `api/users/logout` (POST)
   Calls Django logout method and deletes the Token object
   assigned to the current User object.
-- `api/auth/password/reset` (POST)
+- `api/users/password/reset` (POST)  (NOT IMPLEMENTED)
   - email
   Sends uid and token for password reset.
-- `api/auth/password/reset/confirm/` (POST)
+- `api/users/password/reset/confirm/` (POST) (NOT IMPLEMENTED)
   - uid
   - token
   - new_password1
   - new_password2
   Sets new password using info from reset.
-- `api/auth/password/change` (POST)
+- `api/auth/password/change` (POST) (NOT IMPLEMENTED)
   - new_password1
   - new_password2
   - old_password
-  Sets new password. By default requires old one.
-- `api/auth/user` (GET, PUT, PATCH)
-  - username
-  - first_name
-  - last_name
-  Returns pk, username, email, first_name, last_name
+  Sets new password.
+- `api/users/` (GET)
+  Returns list of all users
+- `api/users/<int:pk>` (GET, PUT, DELETE)
+Returns user witch matches primary key
 - `api/auth/token/verify` (POST)
   - token
   Returns an empty JSON object if token is valid and not expired.
@@ -40,9 +39,6 @@
   - password2
   - email
   By default email verification is no required, but email is set as not verified.
-- `api/auth/registration/verify-email` (POST)
-  - key
-  Verifies email.
-- `api/auth/registration/resend-email` (POST)
+- `api/users/resend-email` (POST)
   - email
   Resends verification email.
