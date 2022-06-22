@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from videos import serializers
 from videos.models import Video, Comment
 from videos.permissions import IsOwnerOrReadOnly
+from videos.tasks import send_spam
 
 # redis connection
 # redis = rd.Redis(host=’redis’, port=6379, db=0)
@@ -16,8 +17,6 @@ class VideoList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-
 
 
 class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
