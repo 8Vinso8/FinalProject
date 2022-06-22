@@ -2,10 +2,8 @@ from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from videos import serializers
-#from users.models import CustomUser as User
 from videos.models import Video, Comment
 from videos.permissions import IsOwnerOrReadOnly
-from django.http import JsonResponse, Http404
 
 # redis connection
 # redis = rd.Redis(host=’redis’, port=6379, db=0)
@@ -15,7 +13,6 @@ class VideoList(generics.ListCreateAPIView):
     queryset = Video.objects.all()
     serializer_class = serializers.VideoSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    hi = True
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
