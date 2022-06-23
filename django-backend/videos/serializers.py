@@ -10,12 +10,14 @@ class VideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Video
-        fields = ['id', 'user', 'user_id', 'title', 'description', 'date', 'video', 'thumbnail', 'likes_count', 'comments']
+        fields = ['id', 'user', 'user_id', 'title', 'description', 'date', 'video', 'thumbnail', 'likes_count',
+                  'comments']
 
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
-    avatar = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False, source='user.avatar')
+    avatar = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False,
+                                    source='user.avatar')
 
     class Meta:
         model = Comment
