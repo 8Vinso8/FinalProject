@@ -49,4 +49,3 @@ class SubscribeView(APIView):
             return Response(status.HTTP_200_OK)
         record.delete()
         return Response(status.HTTP_200_OK)
-

@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from users.models import CustomUser as User
 
 
@@ -30,4 +29,3 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-date']
-

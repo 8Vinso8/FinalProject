@@ -5,9 +5,6 @@ from videos import serializers
 from videos.models import Video, Comment
 from videos.permissions import IsOwnerOrReadOnly
 
-# redis connection
-# redis = rd.Redis(host=’redis’, port=6379, db=0)
-
 
 class VideoList(generics.ListCreateAPIView):
     queryset = Video.objects.all()
