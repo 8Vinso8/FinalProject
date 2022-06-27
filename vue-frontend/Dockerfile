@@ -1,9 +1,10 @@
 FROM node:alpine as build
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+RUN npm install yarn
+COPY package*.json yarn.lock ./
+RUN yarn install
 COPY . ./
-RUN npm run build
+RUN yarn run build
 
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
