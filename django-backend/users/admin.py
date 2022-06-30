@@ -6,6 +6,7 @@ from users.models import PostSend
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+    exclude = ['last_name', 'first_name', ]
     list_display = ['email', 'username', ]
 
 
