@@ -34,6 +34,6 @@ class PostSend(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Рассылка'
+        verbose_name = 'рассылку'
         verbose_name_plural = 'Рассылки'
         ordering = ['time_create', 'title']
