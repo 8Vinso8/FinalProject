@@ -142,7 +142,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'lolbutt.noreply@gmail.com'
-EMAIL_HOST_PASSWORD = 'kfbjobdsuvujmhah'
+EMAIL_HOST_PASSWORD = 'xyixnibhfapnvinx'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

@@ -21,3 +21,19 @@ class UserSubscribed(models.Model):
 
     class Meta:
         unique_together = ('user', 'subscribed_user')
+
+
+class PostSend(models.Model):
+    title = models.CharField(max_length=250, verbose_name='Заголовок')
+    content = models.TextField(blank=True, verbose_name='Текст поста')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
+    is_published = models.BooleanField(default=True, verbose_name='Публикация')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
+        ordering = ['time_create', 'title']
