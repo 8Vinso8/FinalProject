@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    last_name = None
-    first_name = None
     email = models.EmailField(unique=True)
     avatar = models.ImageField(default='default_avatar.png', upload_to='avatars')
 
@@ -28,12 +26,12 @@ class PostSend(models.Model):
     content = models.TextField(blank=True, verbose_name='Текст поста')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
-    is_published = models.BooleanField(default=True, verbose_name='Публикация')
+    is_published = models.BooleanField(default=True, verbose_name='Разослать')
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Пост'
-        verbose_name_plural = 'Посты'
+        verbose_name = 'рассылку'
+        verbose_name_plural = 'Рассылки'
         ordering = ['time_create', 'title']

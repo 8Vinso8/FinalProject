@@ -4,3 +4,4 @@ Dockerfile
 .dockerignore
 package-lock.json
 venv
+.env
