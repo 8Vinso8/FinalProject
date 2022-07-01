@@ -1,7 +1,10 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <div style="columns: auto;">
+      <router-link to="/">Home</router-link>
+      <router-link to="/videos">Videos</router-link>
+      <router-link to="/login">Login</router-link>
+    </div>
   </nav>
   <router-view />
 </template>
