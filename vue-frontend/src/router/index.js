@@ -21,6 +21,11 @@ const routes = [
     path:'/watch/:id',
     name:'watch',
     component: () => import('../views/VideoView.vue')
+  },
+  {
+    path:'/login',
+    name:'login',
+    component: () => import('../views/LoginView.vue')
   }
 ]
 
