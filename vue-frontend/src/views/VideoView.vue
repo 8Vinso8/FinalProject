@@ -73,7 +73,7 @@ export default {
     GetVideoData(id) {
       const formData = new FormData();
       const headers = { 'Content-Type': 'application/json' };
-      axios.get('http://127.0.0.1:8000/api/videos/' + id, formData, { headers }).then((res) => {
+      axios.get('http://127.0.0.1/api/videos/' + id, formData, { headers }).then((res) => {
         this.video = res.data;
         document.title = res.data.title
         // console.log(res.data)
@@ -101,8 +101,8 @@ export default {
       formData.append('body', comment);
       formData.append('video', this.video.id);
       const headers = { 'Content-Type': 'application.json', 'Authorization': `Token ${this.authkey}` };
-      axios.post('http://127.0.0.1:8000/api/videos/comments/', formData, { headers }).then((res) => {
-        axios.get('http://127.0.0.1:8000/api/videos/comments/' + res.data.id + '/', formData, { headers }).then((res1) => this.comments.unshift(res1.data));
+      axios.post('http://127.0.0.1/api/videos/comments/', formData, { headers }).then((res) => {
+        axios.get('http://127.0.0.1/api/videos/comments/' + res.data.id + '/', formData, { headers }).then((res1) => this.comments.unshift(res1.data));
       });
     },
     GetComments(ids) {
@@ -112,14 +112,14 @@ export default {
       const headers = { 'Content-Type': 'application/json' };
       for (let i = 0; i < ids.length; i++) {
         console.log(ids[i])
-        axios.get('http://127.0.0.1:8000/api/videos/comments/' + ids[i] + '/', formData, { headers }).then((res) => this.comments.push(res.data));
+        axios.get('http://127.0.0.1/api/videos/comments/' + ids[i] + '/', formData, { headers }).then((res) => this.comments.push(res.data));
       }
       // console.log(this.comments)
     },
     Like() {
       const formData = new FormData();
       const headers = { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` };
-      axios.post(`http://127.0.0.1:8000/api/videos/${this.video.id}/likes`, formData, { headers }).then((res) => {
+      axios.post(`http://127.0.0.1/api/videos/${this.video.id}/likes`, formData, { headers }).then((res) => {
         console.log(res.data);
       });
       this.video.likes_count += 1;
@@ -127,7 +127,7 @@ export default {
     Subscribe() {
       const formData = new FormData();
       const headers = { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` };
-      axios.post(`http://127.0.0.1:8000/api/users/${this.video.user_id}/subscribe`, formData, { headers }).then((res) => {
+      axios.post(`http://127.0.0.1/api/users/${this.video.user_id}/subscribe`, formData, { headers }).then((res) => {
         console.log(res.data);
       });
     }

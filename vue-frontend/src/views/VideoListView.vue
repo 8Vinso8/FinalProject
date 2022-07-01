@@ -30,7 +30,7 @@ export default {
     GetVideos() {
       const formData = new FormData();
       const headers = { 'Content-Type': 'application/json' };
-      return axios.get('http://127.0.0.1:8000/api/videos/', formData, { headers });
+      return axios.get('http://127.0.0.1/api/videos/', formData, { headers });
     }
   }
 }

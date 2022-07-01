@@ -64,7 +64,7 @@ export default {
             formData.append('description', desc);
             const headers = { 'Content-Type': 'multipart/form-data', 'Authorization': `Token ${this.authkey}` };
             axios
-                .post('http://127.0.0.1:8000/api/videos/', formData, { headers })
+                .post('http://127.0.0.1/api/videos/', formData, { headers })
                 .then((res) => {
                     alert("Uploaded!");
                     return console.log(res)

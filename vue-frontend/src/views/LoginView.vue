@@ -36,7 +36,7 @@ export default {
             formData.append('username', usr);
             formData.append('password', pw);
             const headers = { 'Content-Type': 'application/json' };
-            axios.post('http://127.0.0.1:8000/api/users/login/', formData, { headers }).then((res) => {
+            axios.post('http://127.0.0.1/api/users/login/', formData, { headers }).then((res) => {
                 this.authkey = res.data.key;
                 console.log(res);
                 if (res.statusText == "OK") {
