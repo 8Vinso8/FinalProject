@@ -1,5 +1,4 @@
 <template>
-  <pre>{{ video }}</pre>
   <div class="container">
     <div class="video-js-responsive-container vjs-hd video-container">
       <video-player :options="GetVideoOptions()" class="vjs-big-play-centered vjs-fill" width="100%" height="100%" />
