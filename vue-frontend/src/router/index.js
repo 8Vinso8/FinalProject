@@ -8,24 +8,29 @@ const routes = [
     component: HomeView
   },
   {
-    path:'/videos',
-    name:'videos',
+    path: '/videos',
+    name: 'videos',
     component: () => import('../views/VideoListView.vue')
   },
   {
-    path:'/upload',
-    name:'upload',
+    path: '/upload',
+    name: 'upload',
     component: () => import('../views/UploadView.vue')
   },
   {
-    path:'/watch/:id',
-    name:'watch',
+    path: '/watch/:id',
+    name: 'watch',
     component: () => import('../views/VideoView.vue')
   },
   {
-    path:'/login',
-    name:'login',
+    path: '/login',
+    name: 'login',
     component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/RegisterView.vue')
   }
 ]
 
