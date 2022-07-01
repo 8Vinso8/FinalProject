@@ -9,7 +9,9 @@
 
 export default {
   name: 'HomeView',
-  components: {
+  created() {
+    var cooki = this.$cookies.get('authkey')
+    console.log(cooki)
   }
 }
 </script>
