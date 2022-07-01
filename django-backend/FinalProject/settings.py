@@ -18,8 +18,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '.myhappypage.ninja']
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://*.myhappypage.ninja']
+ALLOWED_HOSTS = ['localhost', '.myhappypage.ninja', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://*.myhappypage.ninja', 'https://127.0.0.1']
 
 
 # Application definition
