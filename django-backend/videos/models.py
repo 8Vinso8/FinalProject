@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser as User
+from django_resized import ResizedImageField
 
 
 class Video(models.Model):
@@ -8,7 +9,7 @@ class Video(models.Model):
     description = models.TextField(max_length=600, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     video = models.FileField(upload_to='videos')
-    thumbnail = models.ImageField(default='default_thumbnail.jpg', upload_to='videos/thumbnails')
+    thumbnail = ResizedImageField(default='default_thumbnail.jpg', upload_to='videos/thumbnails', size=[370, 210])
     likes = models.ManyToManyField(User, blank=True)
 
     def __str__(self):

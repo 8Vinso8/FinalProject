@@ -7,11 +7,12 @@ djangorestframework
 pytz
 sqlparse
 django-redis
-redis
+redis==4.3.4
 schedule
 django_cron
 gunicorn
 dj-rest-auth[with_social]
-django-allauth
+django-allauth==0.51.0
 Pillow
 celery
+django-resized
