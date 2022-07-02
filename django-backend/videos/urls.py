@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/likes', views.LikesDetail.as_view()),
     path('comments/', views.CommentList.as_view()),
     path('comments/<int:pk>/', views.CommentDetail.as_view()),
+    path('subscriptions/', views.VideoSubscriptionList.as_view()),
 ]
