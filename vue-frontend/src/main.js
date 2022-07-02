@@ -7,4 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import VueCookies from "vue-cookies";
 
-createApp(App).use(VueCookies).use(router).mount('#app')
+const app = createApp(App);
+app.config.globalProperties.backhost = window.location.protocol + '//' + window.location.host + ':8000';
+app.use(VueCookies).use(router).mount('#app');
