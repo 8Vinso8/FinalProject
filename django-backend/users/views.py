@@ -5,12 +5,16 @@ from users import serializers
 from users.models import CustomUser as User
 from users.models import UserSubscribed as Subscription
 from users.permissions import IsOwnerOrReadOnly
+from django_filters import rest_framework as filters
 
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ['username', 'email']
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
