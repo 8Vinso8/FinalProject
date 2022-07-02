@@ -6,12 +6,12 @@
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: 'HomeView',
   created() {
-    var cooki = this.$cookies.get('authkey')
-    console.log(cooki)
+    // var cooki = this.$cookies.get('authkey')
+    console.log(this.$route.fullPath)
+    console.log(this.backhost)
   }
 }
 </script>
