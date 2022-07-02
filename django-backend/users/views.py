@@ -24,6 +24,15 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
                           IsOwnerOrReadOnly]
 
 
+class CurrentUser(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = serializers.UserSerializer(user)
+        return Response(serializer.data)
+
+
 class SubscribeView(APIView):
     permissions = [permissions.IsAuthenticated]
 

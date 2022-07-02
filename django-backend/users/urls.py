@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.UserList.as_view()),
     path('<int:pk>', views.UserDetail.as_view()),
     path('<int:pk>/subscribe', views.SubscribeView.as_view()),
+    path('current', views.CurrentUser.as_view()),
     path('account-confirm-email/<str:key>/', ConfirmEmailView.as_view()),
     path('resend-email/', ResendEmailVerificationView.as_view()),
     path('register/', RegisterView.as_view()),
