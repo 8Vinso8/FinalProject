@@ -14,8 +14,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
 
     path('password-reset/', PasswordResetView.as_view()),
-    path('password-reset-confirm', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password-change', PasswordChangeView.as_view()),
+    path('password-reset/confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password-change/', PasswordChangeView.as_view()),
 
     path('verify-email/',
          VerifyEmailView.as_view(), name='rest_verify_email'),
