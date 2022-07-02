@@ -4,12 +4,19 @@ from rest_framework.response import Response
 from videos import serializers
 from videos.models import Video, Comment
 from videos.permissions import IsOwnerOrReadOnly
+from django_filters import rest_framework as filters
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 class VideoList(generics.ListCreateAPIView):
     queryset = Video.objects.all()
     serializer_class = serializers.VideoSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    filter_backends = [SearchFilter, OrderingFilter, filters.DjangoFilterBackend]
+    search_fields = ['title', 'description']
+    filterset_fields = ['title', 'description', 'user']
+    ordering_fields = ['title', 'description', 'date']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
