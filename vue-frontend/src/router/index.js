@@ -31,6 +31,21 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('../views/RegisterView.vue')
+  },
+  {
+    path: '/subs',
+    name: 'subscriptions',
+    component: () => import('../views/SubsView.vue')
+  },
+  {
+    path: '/myprofile',
+    name: 'profile',
+    component: () => import('../views/ProfileView.vue')
+  },
+  {
+    path: '/user/:id',
+    name: 'users',
+    component: () => import('../views/UserView.vue')
   }
 ]
 
