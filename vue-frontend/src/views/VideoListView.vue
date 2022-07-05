@@ -1,24 +1,21 @@
 <template>
   <div>
-    <div v-for="video in videos" v-bind:key="video.id"
-      class="list-group-item list-group-item-action list-group-item-secondary item">
-      <router-link :to="'/watch/' + video.id">
-        <img :src="video.thumbnail" class="img-thumbnail float-left" />
-        <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.title }}</span>
-      </router-link>
-    </div>
+    <VideoList :videos="videos" />
   </div>
 </template>
 
 <script>
 const axios = require('axios');
+import VideoList from '@/components/VideoList.vue'
 export default {
   name: 'VideoListView',
   components: {
+    VideoList
   },
   data() {
+    var authkey
     return {
-      videos: {}
+      videos: {}, authkey
     }
   },
   created() {

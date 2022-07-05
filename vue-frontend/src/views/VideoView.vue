@@ -96,6 +96,7 @@ export default {
       return videoOptions
     },
     SendComment(comment) {
+      this.comment = null;
       const formData = new FormData();
       formData.append('body', comment);
       formData.append('video', this.video.id);

@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="input-group mb-3" style="text-align: center;">
-            <!-- <span>{{ authkey }}</span> -->
             <div class="input-group-prepend col-2">
                 <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
             </div>
@@ -49,18 +48,16 @@ export default {
         }
     },
     methods: {
-        Register(usr, pw, confirm, email) {
+        Register(username, email, password1, password2) {
             const formData = new FormData();
-            formData.append('username', usr);
-            formData.append('password1', pw);
-            formData.append('password2', confirm);
+            formData.append('username', username);
             formData.append('email', email);
+            formData.append('password1', password1);
+            formData.append('password2', password2);
             const headers = { 'Content-Type': 'application/json' };
             axios.post(this.backhost + '/api/users/register/', formData, { headers }).then((res) => {
                 console.log(res);
                 if (res.statusText == "OK") {
-                    this.$cookies.set('authkey', this.authkey, '30d');
-                    console.log(`cookie ${this.authkey} set`);
                     alert("Registered successfully! Check your e-mail");
                 }
             });
