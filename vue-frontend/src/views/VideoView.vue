@@ -52,33 +52,29 @@
 </template>
 
 <script>
+
 const axios = require('axios');
 import VideoPlayer from '@/components/VideoPlayer.vue';
 import 'video.js/dist/video-js.css';
+
 export default {
   name: 'VideoView',
   components: { VideoPlayer },
   data() {
-    var authkey, comment, video = this.GetVideoData(this.$route.params.id);
+    var authkey, comment, video
     return {
       video, authkey, comment, comments: []
     }
   },
-  created() {
+  async created() {
     this.authkey = this.$cookies.get('authkey')
     console.log(this.authkey)
+    this.video = await this.GetVideoData(this.$route.params.id)
+    this.comments = await this.GetComments(this.video.comments)
+    console.log(this.comments)
+    document.title = this.video.title
   },
   methods: {
-    GetVideoData(id) {
-      const formData = new FormData();
-      const headers = { 'Content-Type': 'application/json' };
-      axios.get(this.backhost + '/api/videos/' + id, formData, { headers }).then((res) => {
-        this.video = res.data;
-        document.title = res.data.title
-        // console.log(res.data)
-        this.GetComments(res.data.comments)
-      });
-    },
     GetVideoOptions() {
       var videoOptions = {
         // width: 1280,
@@ -95,6 +91,23 @@ export default {
       }
       return videoOptions
     },
+
+    async GetVideoData(id) {
+      const formData = new FormData();
+      const headers = { 'Content-Type': 'application/json' };
+      return (await axios.get(this.backhost + '/api/videos/' + id, formData, { headers })).data
+    },
+
+    async GetComments(ids) {
+      console.log(ids)
+      var comments = [];
+      const opts = { headers: { 'Content-Type': 'application/json' } };
+      for (let i = 0; i < ids.length; i++) {
+        comments.push((await axios.get(this.backhost + '/api/videos/comments/' + ids[i] + '/', opts)).data)
+      }
+      return comments
+    },
+
     SendComment(comment) {
       this.comment = null;
       const formData = new FormData();
@@ -105,35 +118,31 @@ export default {
         axios.get(this.backhost + '/api/videos/comments/' + res.data.id + '/', formData, { headers }).then((res1) => this.comments.unshift(res1.data));
       });
     },
-    GetComments(ids) {
-      // console.log(ids)
-      this.comments = []
-      const formData = new FormData();
-      const headers = { 'Content-Type': 'application/json' };
-      for (let i = 0; i < ids.length; i++) {
-        console.log(ids[i])
-        axios.get(this.backhost + '/api/videos/comments/' + ids[i] + '/', formData, { headers }).then((res) => this.comments.push(res.data));
-      }
-      // console.log(this.comments)
-    },
+
     Like() {
       const formData = new FormData();
-      const headers = { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` };
-      axios.post(this.backhost + `/api/videos/${this.video.id}/likes`, formData, { headers }).then((res) => {
-        console.log(res.data);
+      const opts = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` } };
+      axios.post(this.backhost + `/api/videos/${this.video.id}/likes`, formData, opts).then(() => {
+        axios.get(this.backhost + `/api/videos/${this.video.id}/likes`, opts).then((res) => {
+          console.log(res.data)
+          this.video.likes_count += res.data.is_liked ? 1 : -1
+        });
       });
-      this.video.likes_count += 1;
     },
+
     Subscribe() {
       const formData = new FormData();
-      const headers = { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` };
-      axios.post(this.backhost + `/api/users/${this.video.user_id}/subscribe`, formData, { headers }).then((res) => {
-        console.log(res.data);
+      const opts = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` } };
+      axios.post(this.backhost + `/api/users/${this.video.user_id}/subscribe`, formData, opts).then(() => {
+        axios.get(this.backhost + `/api/users/${this.video.user_id}/subscribe`, opts).then((res) => {
+          alert(res.data.is_subscribed ? `Subscribed to ${this, this.video.user}` : `Unsubscribed from ${this, this.video.user}`)
+        });
       });
     }
   }
 }
 </script>
+
 <style>
 .container {
   margin-top: 2em;
