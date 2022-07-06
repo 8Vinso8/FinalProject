@@ -36,16 +36,18 @@
         </div>
 
         <p>Other comments:</p>
-        <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
+        <div class="comment mb-3">
+          <comment-list :comments="comments" />
+        </div>
+        <!-- <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
           <div class="comment-user">
             <img :src="comm.avatar">
-            <!-- <img src="https://i.imgur.com/zx7KNAy.png"> -->
             {{ comm.user }}
           </div>
           <div class="comment-text">
             {{ comm.body }}
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -55,11 +57,12 @@
 
 const axios = require('axios');
 import VideoPlayer from '@/components/VideoPlayer.vue';
+import CommentList from '@/components/CommentList.vue';
 import 'video.js/dist/video-js.css';
 
 export default {
   name: 'VideoView',
-  components: { VideoPlayer },
+  components: { VideoPlayer, CommentList },
   data() {
     var authkey, comment, video
     return {
