@@ -12,6 +12,7 @@ export default {
   created() {
     var cooki = this.$cookies.get('authkey')
     console.log(cooki)
+    document.title = 'SeaVid'
   }
 }
 </script>
