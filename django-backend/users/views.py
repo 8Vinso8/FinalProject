@@ -34,7 +34,7 @@ class CurrentUser(APIView):
 
 
 class SubscribeView(APIView):
-    permissions = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, pk):
         try:

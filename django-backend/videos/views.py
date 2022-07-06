@@ -30,14 +30,12 @@ class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class VideoSubscriptionList(generics.ListAPIView):
-    permissions = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = serializers.VideoSerializer
 
     def get_queryset(self):
         user = self.request.user
         return Video.objects.filter(user__subscribers__user=user.id)
-
-
 
 
 class LikesDetail(APIView):
