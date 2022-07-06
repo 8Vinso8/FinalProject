@@ -1,8 +1,8 @@
 <template>
     <div v-for="comment in comments" :key="comment.id" class="comment mb-3">
         <div class="comment-user">
-            <avatar :user_id="comment.user_id" class="img-thumbnail float-left" />
-            {{ comment.user }}
+            <avatar :user_id="comment.user_id" class="float-left" />
+            {{ comment.username }}
         </div>
         <div class="comment-text">
             {{ comment.body }}
