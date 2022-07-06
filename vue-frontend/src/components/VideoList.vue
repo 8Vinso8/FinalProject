@@ -2,8 +2,8 @@
     <div v-for="video in videos" :key="video.id"
         class="list-group-item list-group-item-action list-group-item-secondary item">
         <router-link :to="'/watch/' + video.id">
-            <img :src="video.thumbnail" class="img-thumbnail float-left" />
-            <Avatar :user_id="video.user_id" class="img-thumbnail float-left" />
+            <img :src="video.thumbnail" class="img-thumbnail float-left aaa" />
+            <Avatar :user_id="video.user_id" class="img-thumbnail float-left aaa" />
             <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.title }}</span>
             <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.user }}</span>
             <i class="bi bi-hand-thumbs-up-fill fa-3x" style="font-size: 150%;"></i>
@@ -44,7 +44,7 @@ a {
     color: #42b983;
 }
 
-img {
+.aaa {
     height: 120px !important;
     width: auto;
 }

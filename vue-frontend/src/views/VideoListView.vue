@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-img {
+.aaa {
   height: 120px !important;
   width: auto;
 }
