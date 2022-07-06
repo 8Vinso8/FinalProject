@@ -15,10 +15,11 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    username = serializers.ReadOnlyField(source='user.username')
     avatar = serializers.ImageField(max_length=None, use_url=True, allow_null=True, required=False,
                                     source='user.avatar')
+    user_id = serializers.ReadOnlyField(source='user.id')
 
     class Meta:
         model = Comment
-        fields = ['id', 'body', 'user', 'video', 'avatar']
+        fields = ['id', 'body', 'video', 'avatar', 'username', 'user_id']
