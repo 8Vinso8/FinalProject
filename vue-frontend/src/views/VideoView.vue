@@ -36,7 +36,7 @@
         </div>
 
         <p>Other comments:</p>
-        <div class="comment mb-3">
+        <div class="mb-3">
           <comment-list :comments="comments" />
         </div>
         <!-- <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
@@ -71,17 +71,13 @@ export default {
   },
   async created() {
     this.authkey = this.$cookies.get('authkey')
-    console.log(this.authkey)
     this.video = await this.GetVideoData(this.$route.params.id)
     this.comments = await this.GetComments(this.video.comments)
-    console.log(this.comments)
     document.title = this.video.title
   },
   methods: {
     GetVideoOptions() {
       var videoOptions = {
-        // width: 1280,
-        // height: 720,
         aspectRatio: "16:9",
         autoplay: false,
         controls: true,
@@ -102,7 +98,6 @@ export default {
     },
 
     async GetComments(ids) {
-      console.log(ids)
       var comments = [];
       const opts = { headers: { 'Content-Type': 'application/json' } };
       for (let i = 0; i < ids.length; i++) {
@@ -127,7 +122,6 @@ export default {
       const opts = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` } };
       axios.post(this.backhost + `/api/videos/${this.video.id}/likes`, formData, opts).then(() => {
         axios.get(this.backhost + `/api/videos/${this.video.id}/likes`, opts).then((res) => {
-          console.log(res.data)
           this.video.likes_count += res.data.is_liked ? 1 : -1
         });
       });
