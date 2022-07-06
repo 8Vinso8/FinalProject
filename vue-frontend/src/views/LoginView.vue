@@ -30,6 +30,9 @@ export default {
             login, password, authkey
         }
     },
+    created() {
+        document.title = 'Sign In'
+    },
     methods: {
         Login(usr, pw) {
             const formData = new FormData();

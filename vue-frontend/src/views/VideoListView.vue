@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VideoList :videos="videos" />
+    <video-list :videos="videos" />
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
     }
   },
   created() {
+    document.title = 'Videos'
     this.authkey = this.$cookies.get('authkey')
     this.GetVideos().then((res) => this.videos = res.data.reverse())
     console.log()

@@ -47,6 +47,9 @@ export default {
             username, email, password1, password2, authkey
         }
     },
+    created() {
+        document.title = 'Sign Up'
+    },
     methods: {
         Register(username, email, password1, password2) {
             const formData = new FormData();

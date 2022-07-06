@@ -1,9 +1,6 @@
 <template>
-    <div class="home" style="text-align:center; position: fixed; top:40%; width: 100%;">
-        <h3 style="font-size: 10em;">SeaVid</h3>
-    </div>
     <div>
-        <VideoList :videos="videos" />
+        <video-list :videos="videos" />
     </div>
 </template>
 
@@ -20,20 +17,21 @@ export default {
     data() {
         var authkey
         return {
-            authkey
+            authkey, videos: []
         }
     },
     async created() {
+        document.title = 'Subscriptions'
         this.authkey = this.$cookies.get('authkey')
+        console.log(this.authkey)
         this.videos = (await this.GetVideos()).data
     },
     methods: {
         async GetVideos() {
-            console.log(this.authkey)
-            const formData = new FormData();
-            const headers = { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` };
-            var videos = axios.get(this.backhost + '/api/videos/subscriptions/', formData, { headers }).data.videos;
-            console.log(videos)
+            const options = {
+                headers: { "Authorization": `Token ${this.authkey}` }
+            }
+            return axios.get(this.backhost + '/api/videos/subscriptions/', options);
         }
     }
 }
