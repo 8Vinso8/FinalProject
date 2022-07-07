@@ -1,15 +1,24 @@
 <template>
-    <div v-for="video in videos" :key="video.id"
-        class="list-group-item list-group-item-action list-group-item-secondary item">
-        <router-link :to="'/watch/' + video.id">
-            <img :src="video.thumbnail" class="img-thumbnail float-left aaa" />
-            <Avatar :user_id="video.user_id" class="img-thumbnail float-left aaa" />
-            <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.title }}</span>
-            <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.user }}</span>
-            <i class="bi bi-hand-thumbs-up-fill fa-3x" style="font-size: 150%;"></i>
-            <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{ video.likes_count
-            }}</span>
-        </router-link>
+    <div style="display:block;">
+        <div class="video-grid">
+            <div v-for="video in videos" :key="video.id" class="">
+                <router-link :to="'/watch/' + video.id" class="flexbox-container">
+                    <img :src="video.thumbnail" class="img-thumbnail float-left thumb" />
+                    <h3 class="title">{{ video.title }}</h3>
+                    <div>
+                        <Avatar :user_id="video.user_id" class="img-thumbnail float-left aaa" />
+                        <span style=" font-size: 2em;">{{ video.user }}</span>
+                    </div>
+                    <div>
+                        <i class="bi bi-hand-thumbs-up-fill fa-3x" style="font-size: 150%;"></i>
+                        <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{
+                                video.likes_count
+                        }}</span>
+                    </div>
+
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -26,28 +35,45 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-    margin: 40px 0 0;
+div {
+    word-wrap: break-word;
+    display: block;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.video-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-li {
-    display: inline-block;
-    margin: 0 10px;
+.flexbox-container {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
 }
 
-a {
-    color: #42b983;
+.title {
+    font-size: 1.5em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.thumb {
+    width: 320px !important;
+    height: auto;
+    object-fit: cover;
 }
 
 .aaa {
     height: 120px !important;
     width: auto;
 }
+
+.avatar {}
 
 ;
 
