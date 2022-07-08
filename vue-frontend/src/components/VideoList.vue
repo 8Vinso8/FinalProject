@@ -3,7 +3,8 @@
         <div class="video-grid">
             <div v-for="video in videos" :key="video.id">
                 <router-link :to="'/watch/' + video.id" class="video">
-                    <img :src="video.thumbnail" class="img-thumbnail float-left thumb" />
+                    <div class="thumb img-thumbnail" :style="'background-image: url(\'' + video.thumbnail + '\');'">
+                    </div>
                     <div class="video-props">
                         <router-link :to="'/user/' + video.user_id">
                             <Avatar :user_id="video.user_id" class="ava float-left" />
@@ -95,9 +96,9 @@ export default {
 }
 
 .thumb {
-    width: 400 !important;
-    height: auto;
-    object-fit: cover;
+    width: 400px;
+    height: 225px;
+    background-size: cover;
 }
 
 .ava {
