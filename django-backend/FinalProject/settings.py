@@ -21,10 +21,10 @@ except KeyError:
     DEBUG = True
 if DEBUG:
     ALLOWED_HOSTS = ['*']
-    CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
+    CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'https://*.myhappypage.ninja', 'http://*.myhappypage.ninja']
 else:
     ALLOWED_HOSTS = ['localhost:8000', '.myhappypage.ninja']
-    CSRF_TRUSTED_ORIGINS = ['https://*.myhappypage.ninja', 'http://*.myhappypage.ninja']
+    CSRF_TRUSTED_ORIGINS = ['https://*.myhappypage.ninja', 'http://*.myhappypage.ninja', 'http://localhost', 'http://127.0.0.1']
 
 # Application definition
 
@@ -168,8 +168,8 @@ CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'users.auth.CoolTokenAuthentication',
+        'users.auth.CoolSessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
