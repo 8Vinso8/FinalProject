@@ -15,7 +15,8 @@
       <router-link to="/register">Register</router-link>
     </div>
     <div class="navbar" v-if="logged_in">
-      <avatar :user_id="my_id" class="ava" />
+      <span style="font-weight: bold; font-size: 150%;">{{ my_user.username }}</span>
+      <avatar :user_id="my_user.id" class="ava" />
     </div>
   </nav>
   <router-view />
@@ -28,9 +29,9 @@ import Avatar from './components/UserAvatar.vue'
 export default {
   components: { Avatar },
   data() {
-    var logged_in, authkey, my_id
+    var logged_in, authkey, my_user
     return {
-      logged_in, authkey, my_id
+      logged_in, authkey, my_user
     }
   },
   async created() {
@@ -43,7 +44,7 @@ export default {
       try {
         var a = await axios.get(this.backhost + '/api/users/current', { headers })
         console.log(a)
-        this.my_id = a.data.id
+        this.my_user = a.data
         return true;
       }
       catch {
@@ -92,9 +93,9 @@ nav a.router-link-exact-active {
 }
 
 .ava {
-  clip-path: circle(64px at center);
-  width: 64px;
-  height: 64px;
+  clip-path: circle(40px at center);
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid rgba(0, 0, 0, 0.473);
