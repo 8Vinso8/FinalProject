@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Yarn CI
+name: Vue CI
 
 # Controls when the workflow will run
 on:
@@ -15,12 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v3.0.0
+      - name: Install dependencies
+        uses: borales/actions-yarn@v3.0.0
         with:
+          working-directory: ./vue-frontend
           cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v3.0.0
+      - name: Build
+        uses: borales/actions-yarn@v3.0.0
         with:
+          working-directory: ./vue-frontend
           cmd: build # will run `yarn build` command
-      - uses: borales/actions-yarn@v3.0.0
+      - name: Run tests
+        uses: borales/actions-yarn@v3.0.0
         with:
+          working-directory: ./vue-frontend
           cmd: test # will run `yarn test` command
