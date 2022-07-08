@@ -15,10 +15,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['localhost', '.myhappypage.ninja', '127.0.0.1', 'localhost:8000']
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://*.myhappypage.ninja', 'https://127.0.0.1', 'http://localhost:8000']
+try:
+    DEBUG = os.environ['DEBUG'] == 'True'
+except KeyError:
+    DEBUG = True
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+    CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
+else:
+    ALLOWED_HOSTS = ['localhost:8000', '.myhappypage.ninja']
+    CSRF_TRUSTED_ORIGINS = ['https://*.myhappypage.ninja', 'http://*.myhappypage.ninja']
 
 # Application definition
 
