@@ -23,8 +23,8 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
     CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'https://*.myhappypage.ninja', 'http://*.myhappypage.ninja']
 else:
-    ALLOWED_HOSTS = ['localhost:8000', '.myhappypage.ninja']
-    CSRF_TRUSTED_ORIGINS = ['https://*.myhappypage.ninja', 'http://*.myhappypage.ninja', 'http://localhost', 'http://127.0.0.1']
+    ALLOWED_HOSTS = ['localhost:8000', '.myhappypage.ninja', '95.154.66.193']
+    CSRF_TRUSTED_ORIGINS = ['https://*.myhappypage.ninja', 'http://*.myhappypage.ninja', 'http://localhost', 'http://127.0.0.1', 'http://95.154.66.193']
 
 # Application definition
 

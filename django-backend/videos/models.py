@@ -9,7 +9,7 @@ class Video(models.Model):
     description = models.TextField(max_length=600, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     video = models.FileField(upload_to='videos')
-    thumbnail = ResizedImageField(default='default_thumbnail.jpg', upload_to='videos/thumbnails', size=[370, 210])
+    thumbnail = ResizedImageField(size=[370, 210], default='default_thumbnail.jpg', upload_to='videos/thumbnails')
     likes = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
