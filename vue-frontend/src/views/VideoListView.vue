@@ -34,16 +34,4 @@ export default {
 }
 </script>
 
-<style>
-.aaa {
-  height: 120px !important;
-  width: auto;
-}
 
-;
-
-.item {
-  width: 200px;
-  height: 120px;
-}
-</style>
