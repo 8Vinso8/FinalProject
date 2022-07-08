@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-sm d-flex flex-column gap-3">
         <div class="video-js-responsive-container vjs-hd video-container">
             <video-player
                 :options="GetVideoOptions()"
@@ -9,54 +9,41 @@
             />
         </div>
 
-        <div class="video-information">
+        <div>
             <h1>{{ video.title }}</h1>
             <p>Uploaded by {{ video.user }} at {{ video.date }}</p>
             <p>Description: {{ video.description }}</p>
 
-            <div style="display: flex; flex-direction: row">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default"
-                            ><i class="bi bi-hand-thumbs-up-fill" style="margin-right: 5px"></i
-                            >{{ video.likes_count }}</span
-                        >
-                    </div>
+            <div class="d-flex gap-3">
+                <div class="input-group" style="width: auto">
+                    <span class="input-group-text" id="inputGroup-sizing-default"
+                        ><i class="bi bi-hand-thumbs-up-fill" style="margin-right: 5px"></i
+                        >{{ video.likes_count }}</span
+                    >
                     <button class="btn btn-outline-secondary" type="button" @click="Like()">Like</button>
                 </div>
+
+                <div class="input-group" style="width: auto">
+                    <span class="input-group-text" id="inputGroup-sizing-default">{{ video.user }}</span>
+                    <button class="btn btn-outline-secondary" type="button" @click="Subscribe()">Subscribe</button>
+                </div>
             </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">{{ video.user }}</span>
-                <button class="btn btn-outline-secondary" type="button" @click="Subscribe()">Subscribe</button>
+        </div>
+
+        <div>
+            <p>Write a comment:</p>
+            <div class="user-comment-container my-3">
+                <div class="input-group">
+                    <input v-model="comment" type="text" ref="comment" class="user-comment-textbox form-control" />
+                    <button class="user-comment-send-button btn btn-outline-secondary" @click="SendComment(comment)">
+                        Send
+                    </button>
+                </div>
             </div>
 
-            <div class="comment-section mb-3">
-                <p>Write a comment:</p>
-                <div class="user-comment-container mb-3">
-                    <div class="input-group">
-                        <input v-model="comment" type="text" ref="comment" class="user-comment-textbox form-control" />
-                        <button
-                            class="user-comment-send-button btn btn-outline-secondary"
-                            @click="SendComment(comment)"
-                        >
-                            Send
-                        </button>
-                    </div>
-                </div>
-
-                <p>Other comments:</p>
-                <div class="mb-3">
-                    <comment-list :comments="comments" />
-                </div>
-                <!-- <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
-          <div class="comment-user">
-            <img :src="comm.avatar">
-            {{ comm.user }}
-          </div>
-          <div class="comment-text">
-            {{ comm.body }}
-          </div>
-        </div> -->
+            <p>Other comments:</p>
+            <div class="my-3">
+                <comment-list :comments="comments" />
             </div>
         </div>
     </div>
@@ -156,20 +143,3 @@ export default {
     }
 };
 </script>
-
-<style>
-.container {
-    margin-top: 2em;
-    margin-bottom: 2em;
-    aspect-ratio: 16/9;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    width: 70%;
-}
-
-.comment-section {
-    display: flex;
-    flex-direction: column;
-}
-</style>
