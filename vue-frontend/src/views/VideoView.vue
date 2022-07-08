@@ -1,43 +1,54 @@
 <template>
-  <div class="container">
-    <div class="video-js-responsive-container vjs-hd video-container">
-      <video-player :options="GetVideoOptions()" class="vjs-big-play-centered vjs-fill" width="100%" height="100%" />
-    </div>
-
-    <div class="video-information">
-      <h1>{{ video.title }}</h1>
-      <p>Uploaded by {{ video.user }} at {{ video.date }}</p>
-      <p>Description: {{ video.description }}</p>
-
-      <div style="display:flex;flex-direction:row;">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-hand-thumbs-up-fill"
-                style="margin-right:5px;"></i>{{ video.likes_count }}</span>
-          </div>
-          <button class="btn btn-outline-secondary" type="button" @click="Like()">Like</button>
-        </div>
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-default">{{ video.user }}</span>
-        <button class="btn btn-outline-secondary" type="button" @click="Subscribe()">Subscribe</button>
-      </div>
-
-      <div class="comment-section mb-3">
-        <p>Write a comment:</p>
-        <div class="user-comment-container mb-3">
-          <div class="input-group">
-            <input v-model="comment" type="text" ref="comment" class="user-comment-textbox form-control">
-            <button class="user-comment-send-button btn btn-outline-secondary"
-              @click="SendComment(comment)">Send</button>
-          </div>
+    <div class="container">
+        <div class="video-js-responsive-container vjs-hd video-container">
+            <video-player
+                :options="GetVideoOptions()"
+                class="vjs-big-play-centered vjs-fill"
+                width="100%"
+                height="100%"
+            />
         </div>
 
-        <p>Other comments:</p>
-        <div class="mb-3">
-          <comment-list :comments="comments" />
-        </div>
-        <!-- <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
+        <div class="video-information">
+            <h1>{{ video.title }}</h1>
+            <p>Uploaded by {{ video.user }} at {{ video.date }}</p>
+            <p>Description: {{ video.description }}</p>
+
+            <div style="display: flex; flex-direction: row">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default"
+                            ><i class="bi bi-hand-thumbs-up-fill" style="margin-right: 5px"></i
+                            >{{ video.likes_count }}</span
+                        >
+                    </div>
+                    <button class="btn btn-outline-secondary" type="button" @click="Like()">Like</button>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">{{ video.user }}</span>
+                <button class="btn btn-outline-secondary" type="button" @click="Subscribe()">Subscribe</button>
+            </div>
+
+            <div class="comment-section mb-3">
+                <p>Write a comment:</p>
+                <div class="user-comment-container mb-3">
+                    <div class="input-group">
+                        <input v-model="comment" type="text" ref="comment" class="user-comment-textbox form-control" />
+                        <button
+                            class="user-comment-send-button btn btn-outline-secondary"
+                            @click="SendComment(comment)"
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
+
+                <p>Other comments:</p>
+                <div class="mb-3">
+                    <comment-list :comments="comments" />
+                </div>
+                <!-- <div v-for="comm in comments" :key="comm.id" class="comment mb-3">
           <div class="comment-user">
             <img :src="comm.avatar">
             {{ comm.user }}
@@ -46,136 +57,119 @@
             {{ comm.body }}
           </div>
         </div> -->
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-
-const axios = require('axios');
-import VideoPlayer from '@/components/VideoPlayer.vue';
-import CommentList from '@/components/CommentList.vue';
-import 'video.js/dist/video-js.css';
+const axios = require("axios");
+import VideoPlayer from "@/components/VideoPlayer.vue";
+import CommentList from "@/components/CommentList.vue";
+import "video.js/dist/video-js.css";
 
 export default {
-  name: 'VideoView',
-  components: { VideoPlayer, CommentList },
-  data() {
-    var authkey, comment, video
-    return {
-      video, authkey, comment, comments: []
+    name: "VideoView",
+    components: { VideoPlayer, CommentList },
+    data() {
+        var authkey, comment, video;
+        return {
+            video,
+            authkey,
+            comment,
+            comments: []
+        };
+    },
+    async created() {
+        this.authkey = this.$cookies.get("authkey");
+        this.video = await this.GetVideoData(this.$route.params.id);
+        this.comments = await this.GetComments(this.video.comments);
+        document.title = this.video.title;
+    },
+    methods: {
+        GetVideoOptions() {
+            var videoOptions = {
+                aspectRatio: "16:9",
+                autoplay: false,
+                controls: true,
+                sources: [
+                    {
+                        src: this.video.video,
+                        type: "video/mp4"
+                    }
+                ]
+            };
+            return videoOptions;
+        },
+
+        async GetVideoData(id) {
+            const formData = new FormData();
+            const headers = { "Content-Type": "application/json" };
+            return (await axios.get(this.backhost + "/api/videos/" + id, formData, { headers })).data;
+        },
+
+        async GetComments(ids) {
+            var comments = [];
+            const opts = { headers: { "Content-Type": "application/json" } };
+            for (let i = 0; i < ids.length; i++) {
+                comments.push((await axios.get(this.backhost + "/api/videos/comments/" + ids[i] + "/", opts)).data);
+            }
+            return comments;
+        },
+
+        SendComment(comment) {
+            this.comment = null;
+            const formData = new FormData();
+            formData.append("body", comment);
+            formData.append("video", this.video.id);
+            const headers = { "Content-Type": "application.json", Authorization: `Token ${this.authkey}` };
+            axios.post(this.backhost + "/api/videos/comments/", formData, { headers }).then((res) => {
+                axios
+                    .get(this.backhost + "/api/videos/comments/" + res.data.id + "/", formData, { headers })
+                    .then((res1) => this.comments.unshift(res1.data));
+            });
+        },
+
+        Like() {
+            const formData = new FormData();
+            const opts = { headers: { "Content-Type": "application/json", Authorization: `Token ${this.authkey}` } };
+            axios.post(this.backhost + `/api/videos/${this.video.id}/likes`, formData, opts).then(() => {
+                axios.get(this.backhost + `/api/videos/${this.video.id}/likes`, opts).then((res) => {
+                    this.video.likes_count += res.data.is_liked ? 1 : -1;
+                });
+            });
+        },
+
+        Subscribe() {
+            const formData = new FormData();
+            const opts = { headers: { "Content-Type": "application/json", Authorization: `Token ${this.authkey}` } };
+            axios.post(this.backhost + `/api/users/${this.video.user_id}/subscribe`, formData, opts).then(() => {
+                axios.get(this.backhost + `/api/users/${this.video.user_id}/subscribe`, opts).then((res) => {
+                    alert(
+                        res.data.is_subscribed
+                            ? `Subscribed to ${(this, this.video.user)}`
+                            : `Unsubscribed from ${(this, this.video.user)}`
+                    );
+                });
+            });
+        }
     }
-  },
-  async created() {
-    this.authkey = this.$cookies.get('authkey')
-    this.video = await this.GetVideoData(this.$route.params.id)
-    this.comments = await this.GetComments(this.video.comments)
-    document.title = this.video.title
-  },
-  methods: {
-    GetVideoOptions() {
-      var videoOptions = {
-        aspectRatio: "16:9",
-        autoplay: false,
-        controls: true,
-        sources: [
-          {
-            src: this.video.video,
-            type: 'video/mp4'
-          }
-        ]
-      }
-      return videoOptions
-    },
-
-    async GetVideoData(id) {
-      const formData = new FormData();
-      const headers = { 'Content-Type': 'application/json' };
-      return (await axios.get(this.backhost + '/api/videos/' + id, formData, { headers })).data
-    },
-
-    async GetComments(ids) {
-      var comments = [];
-      const opts = { headers: { 'Content-Type': 'application/json' } };
-      for (let i = 0; i < ids.length; i++) {
-        comments.push((await axios.get(this.backhost + '/api/videos/comments/' + ids[i] + '/', opts)).data)
-      }
-      return comments
-    },
-
-    SendComment(comment) {
-      this.comment = null;
-      const formData = new FormData();
-      formData.append('body', comment);
-      formData.append('video', this.video.id);
-      const headers = { 'Content-Type': 'application.json', 'Authorization': `Token ${this.authkey}` };
-      axios.post(this.backhost + '/api/videos/comments/', formData, { headers }).then((res) => {
-        axios.get(this.backhost + '/api/videos/comments/' + res.data.id + '/', formData, { headers }).then((res1) => this.comments.unshift(res1.data));
-      });
-    },
-
-    Like() {
-      const formData = new FormData();
-      const opts = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` } };
-      axios.post(this.backhost + `/api/videos/${this.video.id}/likes`, formData, opts).then(() => {
-        axios.get(this.backhost + `/api/videos/${this.video.id}/likes`, opts).then((res) => {
-          this.video.likes_count += res.data.is_liked ? 1 : -1
-        });
-      });
-    },
-
-    Subscribe() {
-      const formData = new FormData();
-      const opts = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.authkey}` } };
-      axios.post(this.backhost + `/api/users/${this.video.user_id}/subscribe`, formData, opts).then(() => {
-        axios.get(this.backhost + `/api/users/${this.video.user_id}/subscribe`, opts).then((res) => {
-          alert(res.data.is_subscribed ? `Subscribed to ${this, this.video.user}` : `Unsubscribed from ${this, this.video.user}`)
-        });
-      });
-    }
-  }
-}
+};
 </script>
 
 <style>
 .container {
-  margin-top: 2em;
-  margin-bottom: 2em;
-  aspect-ratio: 16/9;
-  display: flex;
-  flex-direction: column;
-  gap: 2em;
-  width: 70%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 70%;
 }
-
-/* .video-description {} */
 
 .comment-section {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background: rgb(243, 243, 243);
-}
-
-.comment-user {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.comment-user>img {
-  clip-path: circle(32px at center);
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid black;
+    display: flex;
+    flex-direction: column;
 }
 </style>
