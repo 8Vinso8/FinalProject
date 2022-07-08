@@ -13,6 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vue-frontend
 
     strategy:
       matrix:
@@ -27,13 +30,10 @@ jobs:
         cache: 'yarn'
     - name: Install dependencies
       run: |
-        cd vue-frontend
         yarn install
     - name: Build
       run: |
-        cd vue-frontend
         yarn build
     - name: Run tests
       run: |
-        cd vue-frontend
         yarn test
