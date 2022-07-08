@@ -45,7 +45,7 @@ export default {
 .video-grid {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -75,10 +75,12 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: left;
+    color: black;
 }
 
 .video-title {
-    color: black;
+    color: rgb(54, 54, 54);
+    font-weight: 600;
 }
 
 .video-author {
