@@ -8,6 +8,8 @@ on:
 
 env:
   SECRET_KEY: 4%@sivqha=8q2rpj0-!$#q_q(e%-$y_bvbk@j5%dbo22&29z$q
+  EMAIL_HOST_USER: lolbutt.noreply@gmail.com
+  EMAIL_HOST_PASSWORD: dyejmnzbfkdsekri
 
 jobs:
   build:
