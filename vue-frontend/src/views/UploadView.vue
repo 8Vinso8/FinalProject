@@ -59,7 +59,10 @@ export default {
         UploadRequest(title, desc, video, thumb) {
             const formData = new FormData();
             formData.append('video', video);
-            formData.append('thumbnail', thumb);
+            console.log(thumb)
+            if (typeof thumb !== 'undefined') {
+                formData.append('thumbnail', thumb);
+            }
             formData.append('title', title);
             formData.append('description', desc);
             const headers = { 'Content-Type': 'multipart/form-data', 'Authorization': `Token ${this.authkey}` };

@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="input-group mb-3" style="text-align: center;">
-            <!-- <span>{{ authkey }}</span> -->
             <div class="input-group-prepend col-2">
                 <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
             </div>

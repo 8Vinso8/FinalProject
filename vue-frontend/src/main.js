@@ -8,5 +8,5 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import VueCookies from "vue-cookies";
 
 const app = createApp(App);
-app.config.globalProperties.backhost = window.location.protocol + '//' + window.location.host + ':8000';
+app.config.globalProperties.backhost = window.location.protocol + '//' + window.location.hostname;
 app.use(VueCookies).use(router).mount('#app');
