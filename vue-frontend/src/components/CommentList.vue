@@ -1,9 +1,11 @@
 <template>
     <div v-for="comment in comments" :key="comment.id" class="comment mb-3">
-        <div class="comment-user">
-            <avatar :user_id="comment.user_id" class="float-left" />
-            {{ comment.username }}
-        </div>
+        <router-link :to="'/user/' + comment.user_id" style="text-decoration:none;">
+            <div class="comment-user">
+                <avatar :user_id="comment.user_id" class="float-left" />
+                <span style="font-weight:bold">{{ comment.username }}</span>
+            </div>
+        </router-link>
         <div class="comment-text">
             {{ comment.body }}
         </div>

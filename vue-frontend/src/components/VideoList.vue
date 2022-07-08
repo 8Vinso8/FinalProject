@@ -5,10 +5,14 @@
                 <router-link :to="'/watch/' + video.id" class="video">
                     <img :src="video.thumbnail" class="img-thumbnail float-left thumb" />
                     <div class="video-props">
-                        <Avatar :user_id="video.user_id" class="ava float-left" />
+                        <router-link :to="'/user/' + video.user_id">
+                            <Avatar :user_id="video.user_id" class="ava float-left" />
+                        </router-link>
                         <div class="video-text">
                             <span class="video-title">{{ video.title }}</span>
-                            <span class="video-author">{{ video.user }}</span>
+                            <router-link :to="'/user/' + video.user_id">
+                                <span class="video-author">{{ video.user }}</span>
+                            </router-link>
                             <div class="video-likes">
                                 <i class="bi bi-hand-thumbs-up-fill fa-3x"></i>
                                 <span>{{ video.likes_count }}</span>
@@ -86,6 +90,10 @@ export default {
 .video-author {
     font-size: medium;
     color: grey;
+}
+
+.video-author:hover {
+    color: rgb(8, 9, 19);
 }
 
 .thumb {
