@@ -9,17 +9,15 @@
       <p>Uploaded by {{ video.user }} at {{ video.date }}</p>
       <p>Description: {{ video.description }}</p>
 
-
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-hand-thumbs-up-fill"
-              style="margin-right:5px;"></i>{{
-                  video.likes_count
-              }}</span>
+      <div style="display:flex;flex-direction:row;">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-hand-thumbs-up-fill"
+                style="margin-right:5px;"></i>{{ video.likes_count }}</span>
+          </div>
+          <button class="btn btn-outline-secondary" type="button" @click="Like()">Like</button>
         </div>
-        <button class="btn btn-outline-secondary" type="button" @click="Like()">Like</button>
       </div>
-
       <div class="input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing-default">{{ video.user }}</span>
         <button class="btn btn-outline-secondary" type="button" @click="Subscribe()">Subscribe</button>
