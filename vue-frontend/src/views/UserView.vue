@@ -5,36 +5,36 @@
 </template>
 
 <script>
-
-const axios = require('axios');
-import VideoList from '@/components/VideoList.vue'
-import Avatar from '@/components/UserAvatar.vue'
+const axios = require("axios");
+import VideoList from "@/components/VideoList.vue";
+import Avatar from "@/components/UserAvatar.vue";
 export default {
-    name: 'UserView',
+    name: "UserView",
     components: { VideoList, Avatar },
     data() {
-        var user, videos
+        var user, videos;
         return {
-            user, videos
-        }
+            user,
+            videos
+        };
     },
     async created() {
-        var cooki = this.$cookies.get('authkey')
-        console.log(cooki)
-        this.user = await this.GetUser(this.$route.params.id)
-        this.videos = await this.GetVideos(this.user.id)
+        var cooki = this.$cookies.get("authkey");
+        console.log(cooki);
+        this.user = await this.GetUser(this.$route.params.id);
+        this.videos = await this.GetVideos(this.user.id);
     },
     methods: {
         async GetUser(id) {
-            const headers = { 'Content-Type': 'application/json' };
-            return (await axios.get(this.backhost + '/api/users/' + id, { headers })).data;
+            const headers = { "Content-Type": "application/json" };
+            return (await axios.get(this.backhost + "/api/users/" + id, { headers })).data;
         },
         async GetVideos(id) {
-            const headers = { 'Content-Type': 'application/json' };
-            return (await axios.get(this.backhost + '/api/videos/?user=' + id, { headers })).data;
+            const headers = { "Content-Type": "application/json" };
+            return (await axios.get(this.backhost + "/api/videos/?user=" + id, { headers })).data;
         }
     }
-}
+};
 </script>
 <style scoped>
 .ava {

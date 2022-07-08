@@ -19,7 +19,6 @@
                             </div>
                         </div>
                     </div>
-
                 </router-link>
             </div>
         </div>
@@ -27,8 +26,7 @@
 </template>
 
 <script>
-
-import Avatar from './UserAvatar.vue'
+import Avatar from "./UserAvatar.vue";
 export default {
     name: "VideoList",
     props: {
