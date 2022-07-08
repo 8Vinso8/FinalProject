@@ -1,19 +1,19 @@
 <template>
-    <div style="display:block;">
+    <div class="global-box">
         <div class="video-grid">
-            <div v-for="video in videos" :key="video.id" class="">
-                <router-link :to="'/watch/' + video.id" class="flexbox-container">
+            <div v-for="video in videos" :key="video.id">
+                <router-link :to="'/watch/' + video.id" class="video">
                     <img :src="video.thumbnail" class="img-thumbnail float-left thumb" />
-                    <h3 class="title">{{ video.title }}</h3>
-                    <div>
-                        <Avatar :user_id="video.user_id" class="img-thumbnail float-left aaa" />
-                        <span style=" font-size: 2em;">{{ video.user }}</span>
-                    </div>
-                    <div>
-                        <i class="bi bi-hand-thumbs-up-fill fa-3x" style="font-size: 150%;"></i>
-                        <span style=" font-size: 2em; position: flex; justify-content:center !important;">{{
-                                video.likes_count
-                        }}</span>
+                    <div class="video-props">
+                        <Avatar :user_id="video.user_id" class="ava float-left" />
+                        <div class="video-text">
+                            <span class="video-title">{{ video.title }}</span>
+                            <span class="video-author">{{ video.user }}</span>
+                            <div class="video-likes">
+                                <i class="bi bi-hand-thumbs-up-fill fa-3x"></i>
+                                <span>{{ video.likes_count }}</span>
+                            </div>
+                        </div>
                     </div>
 
                 </router-link>
@@ -35,50 +35,85 @@ export default {
 </script>
 
 <style scoped>
-div {
-    word-wrap: break-word;
-    display: block;
+.global-box {
+    margin: auto;
+    width: 86%;
+    padding: 10px;
+    max-width: 2100px;
 }
 
 .video-grid {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
 }
 
-.flexbox-container {
-    max-width: 320px;
+.video {
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 5px;
 }
 
-.title {
-    font-size: 1.5em;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
+.video-props {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-top: 5px;
+}
+
+.video-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-left: 10px;
+}
+
+.video-likes {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.video-title {
+    color: black;
+}
+
+.video-author {
+    font-size: medium;
+    color: grey;
 }
 
 .thumb {
-    width: 320px !important;
+    width: 400 !important;
     height: auto;
     object-fit: cover;
 }
 
-.aaa {
-    height: 120px !important;
-    width: auto;
+.ava {
+    clip-path: circle(32px at center);
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.473);
 }
 
-.avatar {}
+a:link {
+    text-decoration: none;
+}
 
-;
+a:visited {
+    text-decoration: none;
+}
 
-.item {
-    width: 200px;
-    height: 120px;
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
 }
 </style>
