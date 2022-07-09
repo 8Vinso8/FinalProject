@@ -1,26 +1,30 @@
 <template>
-    <div class="global-box">
-        <div class="video-grid">
-            <div v-for="video in videos" :key="video.id">
-                <router-link :to="'/watch/' + video.id" class="video">
-                    <div class="thumb img-thumbnail" :style="'background-image: url(\'' + video.thumbnail + '\');'">
-                    </div>
-                    <div class="video-props">
-                        <router-link :to="'/user/' + video.user_id">
-                            <Avatar :user_id="video.user_id" class="ava float-left" />
+    <div class="video-grid d-flex flex-row justify-content-center flex-wrap">
+        <div v-for="video in videos" :key="video.id">
+            <router-link :to="'/watch/' + video.id" class="d-flex flex-column justify-content-center p-2">
+                <img :src="video.thumbnail" class="img-thumbnail float-left thumb" />
+            </router-link>
+
+            <div class="d-flex flex-row mx-3 mb-3 justify-content-between align-items-center">
+                <div class="video-props d-flex flex-row gap-2">
+                    <router-link :to="'/user/' + video.user_id">
+                        <Avatar :user_id="video.user_id" class="avatar rounded-circle border border-dark" />
+                    </router-link>
+
+                    <div class="video-text d-flex flex-column">
+                        <router-link :to="'/watch/' + video.id">
+                            <b class="text-dark">{{ video.title }}</b>
                         </router-link>
-                        <div class="video-text">
-                            <span class="video-title">{{ video.title }}</span>
-                            <router-link :to="'/user/' + video.user_id">
-                                <span class="video-author">{{ video.user }}</span>
-                            </router-link>
-                            <div class="video-likes">
-                                <i class="bi bi-hand-thumbs-up-fill fa-3x"></i>
-                                <span>{{ video.likes_count }}</span>
-                            </div>
-                        </div>
+
+                        <router-link :to="'/user/' + video.user_id">
+                            <span class="text-secondary">{{ video.user }}</span>
+                        </router-link>
                     </div>
-                </router-link>
+                </div>
+                <div class="video-likes">
+                    <i class="bi bi-hand-thumbs-up-fill fa-3x"></i>
+                    <span>{{ video.likes_count }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -38,91 +42,20 @@ export default {
 </script>
 
 <style scoped>
-.global-box {
-    margin: auto;
-    width: 86%;
-    padding: 10px;
-    max-width: 2100px;
-}
-
-.video-grid {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.video {
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px;
-}
-
-.video-props {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    margin-top: 5px;
-}
-
-.video-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    margin-left: 10px;
-}
-
-.video-likes {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    color: black;
-}
-
-.video-title {
-    color: rgb(54, 54, 54);
-    font-weight: 600;
-}
-
-.video-author {
-    font-size: medium;
-    color: grey;
-}
-
-.video-author:hover {
-    color: rgb(8, 9, 19);
-}
-
 .thumb {
     width: 400px;
-    height: 225px;
-    background-size: cover;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
 }
 
-.ava {
-    clip-path: circle(32px at center);
+.avatar {
     width: 40px;
     height: 40px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.473);
 }
 
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-a:active {
+a {
     text-decoration: none;
 }
 </style>

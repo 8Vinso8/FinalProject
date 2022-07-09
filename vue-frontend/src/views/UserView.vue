@@ -1,7 +1,11 @@
 <template>
-    <Avatar :user_id="user.id" class="ava" />
-    <span>{{ user.username }}'s videos</span>
-    <video-list :videos="videos" />
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center gap-3 mb-5">
+            <avatar :user_id="user.id" class="avatar rounded-circle border border-dark" />
+            <h1>{{ user.username }}'s videos</h1>
+        </div>
+        <video-list :videos="videos" />
+    </div>
 </template>
 
 <script>
@@ -37,12 +41,9 @@ export default {
 };
 </script>
 <style scoped>
-.ava {
-    clip-path: circle(128px at center);
+.avatar {
     width: 128px;
     height: 128px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.473);
 }
 </style>

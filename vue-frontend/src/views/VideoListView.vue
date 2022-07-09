@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <video-list :videos="videos" />
     </div>
 </template>
