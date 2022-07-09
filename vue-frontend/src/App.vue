@@ -17,7 +17,9 @@
     <div class="navbar" v-if="logged_in">
       <router-link to="/upload">Upload</router-link>
       <span style="font-weight: bold; font-size: 150%">{{ my_user.username }}</span>
-      <avatar :user_id="my_user.id" class="ava" />
+      <router-link to="/myprofile">
+        <avatar :user_id="my_user.id" class="ava" />
+      </router-link>
     </div>
   </nav>
   <router-view />

@@ -4,26 +4,16 @@
             <div class="input-group-prepend col-2">
                 <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
             </div>
-            <input
-                v-model="login"
-                type="text"
-                class="form-control"
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-            />
+            <input v-model="login" type="text" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default" />
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend col-2">
                 <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             </div>
-            <input
-                v-model="password"
-                type="password"
-                class="form-control"
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-            />
+            <input v-model="password" type="password" class="form-control" aria-label="Default"
+                aria-describedby="inputGroup-sizing-default" />
         </div>
         <button class="btn btn-outline-secondary" @click="Login(login, password)">Login</button>
     </div>
@@ -59,6 +49,7 @@ export default {
                     this.$cookies.set("authkey", this.authkey, "30d");
                     console.log(`cookie ${this.authkey} set`);
                     alert("Logged in successfully!");
+                    this.$router.go()
                 }
             });
         }
