@@ -1,17 +1,44 @@
 <template>
-    <div class="home" style="text-align: center; position: fixed; top: 40%; width: 100%">
-        <h3 style="font-size: 10em">SeaVid</h3>
-    </div>
+    <avatar :user_id="me.id" class="comment-user-avatar rounded-circle border border-dark" />
+    <button class="btn btn-danger" @click="Logout()">Logout</button>
 </template>
 
 <script>
-// @ is an alias to /src
 
+import Avatar from "@/components/UserAvatar.vue";
+const axios = require("axios");
 export default {
     name: "ProfileView",
-    created() {
-        var cooki = this.$cookies.get("authkey");
-        console.log(cooki);
+    async created() {
+        this.authkey = this.$cookies.get("authkey");
+        this.me = await this.GetMe()
+    },
+    data() {
+        var authkey, me
+        return {
+            authkey, me
+        }
+    },
+    components: { Avatar },
+    methods: {
+        Logout() {
+            const headers = { "Content-Type": "application.json", Authorization: `Token ${this.authkey}` };
+            axios.post(this.backhost + "/api/users/logout", { headers });
+            this.$cookies.set("authkey", 'cookie', "30d");
+            this.$router.push('/')
+        },
+        async GetMe() {
+            const headers = { "Content-Type": "application.json", Authorization: `Token ${this.authkey}` };
+            return (await axios.get(this.backhost + "/api/users/current", { headers })).data;
+        }
     }
+
 };
 </script>
+<style scoped>
+.comment-user-avatar {
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+}
+</style>
