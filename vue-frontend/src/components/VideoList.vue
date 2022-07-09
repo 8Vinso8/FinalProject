@@ -12,7 +12,7 @@
                     </router-link>
 
                     <div class="video-text d-flex flex-column">
-                        <router-link :to="'/watch/' + video.id">
+                        <router-link :to="'/watch/' + video.id" class="text-truncate" style="max-width: 300px">
                             <b class="text-dark">{{ video.title }}</b>
                         </router-link>
 
