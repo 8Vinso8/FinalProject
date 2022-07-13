@@ -6,7 +6,7 @@
                 <span style="font-weight: bold">{{ comment.username }}</span>
             </router-link>
         </div>
-        <div class="comment-text">
+        <div class="comment-text text-break">
             {{ comment.body }}
         </div>
     </div>
