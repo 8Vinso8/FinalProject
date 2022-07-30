@@ -14,7 +14,7 @@
       <router-link to="/login">Login</router-link>
       <router-link to="/register">Register</router-link>
     </div>
-    <div class="navbar" v-else">
+    <div class="navbar" v-else>
       <router-link to="/upload">Upload</router-link>
       <span style="font-weight: bold; font-size: 150%">{{ my_user.username }}</span>
       <router-link to="/myprofile">
